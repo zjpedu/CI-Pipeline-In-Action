@@ -39,7 +39,8 @@ https://github.com/concourse/concourse/releases
 
 下载对应的包，使得 `fly` 命令可用。解压后，
 
-```
+```shell
+mv fly /usr/local/bin
 ```
 
 ### Hello World Demo
@@ -62,8 +63,11 @@ fly -t tutorial execute -c task_hello_world.yml
 可以看到，Concourse 收到这个 task 之后，下载了一个 Busybox 的 Docker 镜像，然后执行了 echo hello world 这条命令。那么，Concourse 是怎么知道要如何执行一个 task 呢？这就得从上面运行的 task_hello_world.yml 说起了。
 
 ```shell
-fly -t tutorial set-pipeline -c task_hello_world.yml -p hello-world
+fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
 ```
+<img width="1920" alt="截屏2022-09-30 17 18 50" src="https://user-images.githubusercontent.com/13810907/193237906-ac8e5795-0b3e-4896-bc13-9a673f4db079.png">
+
+
 
 ### 参考
 
