@@ -29,6 +29,7 @@ git clone https://github.com/concourse/concourse-docker.git
 cd concourse-docker
 ./keys/generate
 docker-compose up -d
+docker-compose down. # 关闭，concourse
 
 ```
 
