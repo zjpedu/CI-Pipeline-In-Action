@@ -2,7 +2,7 @@
 
 ### 环境
 
-linux 或者 macos， windows 暂时不知道怎么弄 😄
+linux (x86-64) 或者 macos (aarch64 架构不行)， windows 暂时不知道怎么弄 😄
 
 ### 安装 docker
 
