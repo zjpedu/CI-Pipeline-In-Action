@@ -17,6 +17,7 @@ sudo docker run hello-world # 进入到 docker 中
 exit # 退出 docker
 ```
 
+
 ### 安装 Concourse CI
 
 ```shell
@@ -63,3 +64,8 @@ fly -t tutorial execute -c task_hello_world.yml
 ```shell
 fly -t tutorial set-pipeline -c task_hello_world.yml -p hello-world
 ```
+
+### 参考
+
+1. https://github.com/concourse/concourse
+
