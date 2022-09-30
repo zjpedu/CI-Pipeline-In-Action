@@ -29,12 +29,8 @@ git clone https://github.com/concourse/concourse-docker.git
 cd concourse-docker
 ./keys/generate
 docker-compose up -d
+
 ```
-
-接着用浏览器打开 `http://localhost:8080` 看部署是否成功，看到下述画面表示成功安装 Concourse CI。
-
-<img width="1916" alt="截屏2022-09-30 16 56 23" src="https://user-images.githubusercontent.com/13810907/193233277-4ee02ae3-3d8e-45a5-bc80-4c949de790b3.png">
-
 
 
 ### 安装 Fly CLI
@@ -50,7 +46,31 @@ mv ~/fly /usr/local/bin
 ### Hello World Demo
 
 ```shell
+fly -t ci login -c http://localhost:8080 -u test -p test
 fly targets
+```
+
+接着用浏览器打开 `http://localhost:8080` 看部署是否成功，看到下述画面表示成功安装 Concourse CI。 需要登陆，用户名和密码都是 test
+
+<img width="1916" alt="截屏2022-09-30 16 56 23" src="https://user-images.githubusercontent.com/13810907/193233277-4ee02ae3-3d8e-45a5-bc80-4c949de790b3.png">
+
+* pipeline.yml
+
+```shell
+---
+jobs:
+  - name: job-hello-world
+    public: true
+    plan:
+      - task: hello-world
+        config:
+          platform: linux
+          image_resource:
+            type: docker-image
+            source: {repository: busybox}
+          run:
+            path: echo
+            args: [hello world]
 ```
 
 ```shell
