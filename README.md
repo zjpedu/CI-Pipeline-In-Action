@@ -44,7 +44,7 @@ https://github.com/concourse/concourse/releases
 下载对应的包，使得 `fly` 命令可用。解压后，
 
 ```shell
-mv fly /usr/local/bin
+mv ~/fly /usr/local/bin
 ```
 
 ### Hello World Demo
