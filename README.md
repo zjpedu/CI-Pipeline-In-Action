@@ -60,3 +60,26 @@ fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
 
 1. https://github.com/concourse/concourse
 
+### 练习
+
+# Setup a Concourse CI(Continuous Integration) example pipeline.
+
+1. Refer to Quick Start https://concourse-ci.org/quick-start.html to deploy Concourse using docker-compose.
+2. Setup the hello-world pipeline based on https://concourse-ci.org/tutorial-hello-world.html.
+3. Change the hello-world pipeline with two new requirements:
+
+Requirement I. Concourse will run CI jobs in a docker container. Please create a user-defined docker image and upload it to docker hub.
+Then Concourse can fetch and use this container. Docker Image requirement:
+a. base image: Ubuntu20.04
+b. install package libleveldb-dev
+c. generate a rsa key.
+d. [Plus] enable coredump
+
+Requirement II. Instead of just echo helloworld, you should write a simple Concourse CI pipeline to get a github repo, compile a C program and run the program.
+Refer to Concourse documentation(https://concourse-ci.org/docs.html).
+The expected jobs:
+a. Fetch a github repo (https://github.com/zhangh43/hello)
+b. compile the a.cpp in repo HELLO (`g++ --std=c++17 a.cpp`)
+c. run the HELLO program (`./a.out`)
+d. [Plus] Using Concourse github resource instead of clone the repo manually (refer to https://github.com/concourse/git-resource)
+
