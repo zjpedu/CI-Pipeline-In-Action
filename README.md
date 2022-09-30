@@ -46,21 +46,8 @@ mv fly /usr/local/bin
 ### Hello World Demo
 
 ```shell
-fly -t tutorial login -c http://localhost:8080 -u test -p test
 fly targets
 ```
-
-接着我们运行一个 demo
-
-```shell
-git clone https://github.com/starkandwayne/concourse-tutorial.git
-cd concourse-tutorial/tutorials/basic/task-hello-world
-fly -t tutorial execute -c task_hello_world.yml
-```
-<img width="919" alt="截屏2022-09-30 15 48 15" src="https://user-images.githubusercontent.com/13810907/193219327-cb6945d0-39e7-42a9-ab6e-a2f3ea1fbcbd.png">
-
-
-可以看到，Concourse 收到这个 task 之后，下载了一个 Busybox 的 Docker 镜像，然后执行了 echo hello world 这条命令。那么，Concourse 是怎么知道要如何执行一个 task 呢？这就得从上面运行的 task_hello_world.yml 说起了。
 
 ```shell
 fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
