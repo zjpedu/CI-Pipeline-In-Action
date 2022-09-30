@@ -1,5 +1,9 @@
 ##  搭建 Concourse Pipeline
 
+### 环境
+
+linux 或者 macos， windows 暂时不知道怎么弄 😄
+
 ### 安装 docker
 
 ```shell
