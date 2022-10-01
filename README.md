@@ -77,9 +77,9 @@ jobs:
 ```shell
 fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
 ```
-<img width="1920" alt="截屏2022-09-30 17 18 50" src="https://user-images.githubusercontent.com/13810907/193237906-ac8e5795-0b3e-4896-bc13-9a673f4db079.png">
+<img width="1920" alt="截屏2022-10-01 12 26 50" src="https://github.com/YincongLyu/Concourse-Pipeline/blob/main/dashboard.PNG?raw=true">
 
-<img width="1920" alt="截屏2022-09-30 17 53 43" src="https://user-images.githubusercontent.com/13810907/193244840-c8fbe76a-fc7b-4126-b291-4d25b420386a.png">
+<img width="1920" alt="截屏2022-10-01 12 56 55" src="https://github.com/YincongLyu/Concourse-Pipeline/blob/main/main.PNG">
 
 
 ### 参考
