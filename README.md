@@ -149,3 +149,11 @@ jobs:
                   [ $current_time -le $ddl ]
                   [ $result -ge 36 ]
 ```
+
+start docker container inspect the `run` command
+
+```shell
+sudo docker run -it ubuntu bash
+```
+```
+```
