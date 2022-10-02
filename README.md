@@ -2,7 +2,8 @@
 
 ### 环境
 
-* linux (x86-64) ubuntu/centos 都可以 
+* linux (x86-64) ubuntu/centos x86_64 都可以
+* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64
 * macos (我仅测试了 m1 pro apple silicon 不可以)
 * 我没有 windows 环境，所以不知道是否可行 😄
 
