@@ -55,10 +55,9 @@ fly targets
 
 <img width="1916" alt="截屏2022-09-30 16 56 23" src="https://user-images.githubusercontent.com/13810907/193233277-4ee02ae3-3d8e-45a5-bc80-4c949de790b3.png">
 
-* pipeline.yml
+* pipeline.yml 它会拉取 ubuntu 20.04，并且运行输出 `hello, csapp!`
 
 ```shell
----
 jobs:
   - name: job-hello-csapp
     public: true
@@ -68,7 +67,10 @@ jobs:
           platform: linux
           image_resource:
             type: docker-image
-            source: {repository: ubuntu}
+            source: {
+                repository: ubuntu,
+                tag: 20.04
+          }
           run:
             path: echo
             args: [hello, csapp!]
