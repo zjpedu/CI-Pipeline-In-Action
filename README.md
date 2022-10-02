@@ -3,7 +3,7 @@
 ### 环境
 
 * linux (x86-64) ubuntu/centos x86_64 都可以
-* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64
+* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64 没有构建成功,主要是没有 `fly` 工具
 * macos (我仅测试了 m1 pro apple silicon 不可以)
 * 我没有 windows 环境，所以不知道是否可行 😄
 
@@ -20,6 +20,7 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli docker-compose containerd.io docker-compose-plugin
 sudo service docker start
+sudo service docker status #查看 docker 是否处于 running 状态
 docker --version
 # sudo docker run hello-world # 进入到 docker 中，后面这两句可以不用测试
 # exit # 退出 docker
@@ -59,26 +60,24 @@ fly targets
 ```shell
 ---
 jobs:
-  - name: job-hello-world
+  - name: job-hello-csapp
     public: true
     plan:
-      - task: hello-world
+      - task: hello-csapp
         config:
           platform: linux
           image_resource:
             type: docker-image
-            source: {repository: busybox}
+            source: {repository: ubuntu}
           run:
             path: echo
-            args: [hello world]
+            args: [hello, csapp!]
 ```
 
 ```shell
 fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
 ```
-<img width="1920" alt="截屏2022-09-30 17 18 50" src="https://user-images.githubusercontent.com/13810907/193237906-ac8e5795-0b3e-4896-bc13-9a673f4db079.png">
-
-<img width="1920" alt="截屏2022-09-30 17 53 43" src="https://user-images.githubusercontent.com/13810907/193244840-c8fbe76a-fc7b-4126-b291-4d25b420386a.png">
+<img width="1912" alt="截屏2022-10-02 15 04 13" src="https://user-images.githubusercontent.com/13810907/193442261-0069fad0-02a9-4aa1-b5e7-05b02566f613.png">
 
 
 ### 参考
