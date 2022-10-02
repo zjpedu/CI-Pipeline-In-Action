@@ -86,7 +86,7 @@ fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
 
 ### 练习
 
-# Setup a Concourse CI(Continuous Integration) example pipeline.
+#### Setup a Concourse CI(Continuous Integration) example pipeline.
 
 1. Refer to Quick Start https://concourse-ci.org/quick-start.html to deploy Concourse using docker-compose.
 2. Setup the hello-world pipeline based on https://concourse-ci.org/tutorial-hello-world.html.
