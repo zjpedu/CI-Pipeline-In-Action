@@ -102,6 +102,42 @@ Then Concourse can fetch and use this container. Docker Image requirement:
 3. generate a rsa key.
 4. [Plus] enable coredump
 
+
+```shell
+jobs:
+    - name: coredump
+      public: true
+      plan:
+        - task: execute-the-tasks
+          config:
+            platform: linux
+            image_resource:
+              type: docker-image
+              source: {
+                repository: ubuntu,
+                tag: 20.04
+              }
+            run:
+               path: /bin/bash
+               args:
+                - "-e"
+                - "-c"
+                - |
+                  set -x
+                  apt-get update
+                  apt-get install git -y
+                  apt-get install gcc -y
+                  apt-get install libleveldb-dev -y
+                  apt-get install openssh-client -y
+                  ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa
+                  echo 'ulimit -c unlimited' >> ~/.bash_profile
+                  source ~/.bash_profile
+                  cat /root/.ssh/id_rsa.pub
+                  git clone https://github.com/zjpedu/Computer-Systems-Labs
+                  cd Computer-Systems-Labs/gdb_test
+                  gcc -o test test3.c
+```
+
 Requirement II. Instead of just echo helloworld, you should write a simple Concourse CI pipeline to get a github repo, compile a C program and run the program.
 
 Refer to Concourse documentation(https://concourse-ci.org/docs.html).
