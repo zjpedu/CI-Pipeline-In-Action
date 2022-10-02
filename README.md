@@ -2,8 +2,8 @@
 
 ### 环境
 
-* linux (x86-64) ubuntu/centos 都可以。
-* macos (我测试了 m1 pro apple silicon 不可以)
+* linux (x86-64) ubuntu/centos 都可以 
+* macos (我仅测试了 m1 pro apple silicon 不可以)
 * 我没有 windows 环境，所以不知道是否可行 😄
 
 ### 安装 docker
