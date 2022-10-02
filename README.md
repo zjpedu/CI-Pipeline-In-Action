@@ -113,7 +113,7 @@ The expected jobs:
 4. [Plus] Using Concourse github resource instead of clone the repo manually (refer to https://github.com/concourse/git-resource)
 
 答案:
-```json
+```shell
 jobs:
     - name: lab2
       public: true
