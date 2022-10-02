@@ -112,3 +112,40 @@ The expected jobs:
 2. 完成 job2
 4. [Plus] Using Concourse github resource instead of clone the repo manually (refer to https://github.com/concourse/git-resource)
 
+答案:
+```json
+jobs:
+    - name: lab2
+      public: true
+      plan:
+        - task: execute-the-tasks
+          config:
+            platform: linux
+            image_resource:
+              type: docker-image
+              source: {
+                repository: ubuntu,
+                tag: 20.04
+              }
+            run:
+               path: /bin/sh
+               args:
+                - "-e"
+                - "-c"
+                - |
+                  set -x
+                  apt-get update
+                  apt-get install gcc -y
+                  apt-get install gcc-multilib -y
+                  apt-get install make -y
+                  apt-get install git -y
+                  git clone https://github.com/Lily127Yang/Computer-Systems-Labs.git
+                  cd Computer-Systems-Labs/lab2/datalab-handout
+                  make
+                  ./btest -T 50
+                  result=`./btest -T 50 | grep "Total point" | cut -d " " -f3 | cut -d "/" -f1`
+                  ddl=`date -d "2022-10-09 23:59" +%s --utc`
+                  current_time=`date +%s`
+                  [ $current_time -le $ddl ]
+                  [ $result -ge 36 ]
+```
