@@ -1,0 +1,46 @@
+resources:
+- icon: github
+  name: csapp
+  source:
+    uri: https://github.com/Lily127Yang/Computer-Systems-Labs.git
+  type: git
+
+jobs:
+    - name: lab2
+      public: true
+      plan:
+        - get: csapp
+          trigger: true
+        - task: execute-the-tasks
+          config:
+            inputs:
+              - name: csapp
+            platform: linux
+            image_resource:
+              type: docker-image
+              source: {
+                repository: ubuntu,
+                tag: 20.04
+              }
+            run:
+               path: /bin/sh
+               args:
+                - "-e"
+                - "-c"
+                - |
+                  set -x
+                  apt-get update
+                  apt-get install gcc -y
+                  apt-get install gcc-multilib -y
+                  apt-get install make -y
+                  apt-get install git -y
+                  cd csapp/lab2/datalab-handout
+                  make
+                  ./btest -T 50
+                  result=`./btest -T 50 | grep "Total point" | cut -d " " -f3 | cut -d "/" -f1`
+                  ddl=`date -d "2022-10-09 23:59" +%s --utc`
+                  current_time=`date +%s`
+                  [ $current_time -le $ddl ]
+                  [ $result -ge 36 ]
+
+
