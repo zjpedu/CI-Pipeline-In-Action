@@ -155,5 +155,3 @@ start docker container inspect the `run` command
 ```shell
 sudo docker run -it ubuntu bash
 ```
-```
-```
