@@ -2,7 +2,9 @@
 
 ### 环境
 
-linux (x86-64) 或者 macos (aarch64 架构不行)， windows 暂时不知道怎么弄 😄
+* linux (x86-64) ubuntu/centos 都可以。
+* macos (我测试了 m1 pro apple silicon 不可以)
+* 我没有 windows 环境，所以不知道是否可行 😄
 
 ### 安装 docker
 
@@ -17,8 +19,9 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli docker-compose containerd.io docker-compose-plugin
 sudo service docker start
-sudo docker run hello-world # 进入到 docker 中
-exit # 退出 docker
+docker --version
+# sudo docker run hello-world # 进入到 docker 中，后面这两句可以不用测试
+# exit # 退出 docker
 ```
 
 
@@ -29,8 +32,7 @@ git clone https://github.com/concourse/concourse-docker.git
 cd concourse-docker
 ./keys/generate
 docker-compose up -d
-docker-compose down. # 关闭，concourse
-
+docker-compose down # 关闭 concourse
 ```
 
 
@@ -38,20 +40,16 @@ docker-compose down. # 关闭，concourse
 
 https://github.com/concourse/concourse/releases
 
-下载对应的包，使得 `fly` 命令可用。解压后，
+下载对应的包，使得 `fly` 命令可用。解压后，将 `fly` 可执行文件移动到 /usr/local/bin 目录下。
+
+### Demo
 
 ```shell
-mv ~/fly /usr/local/bin
-```
-
-### Hello World Demo
-
-```shell
-fly -t ci login -c http://localhost:8080 -u test -p test
+fly -t ci login -c http://localhost:8080 -u admin -p admin
 fly targets
 ```
 
-接着用浏览器打开 `http://localhost:8080` 看部署是否成功，看到下述画面表示成功安装 Concourse CI。 需要登陆，用户名和密码都是 test
+接着用浏览器打开 `http://localhost:8080` 看部署是否成功，看到下述画面表示成功安装 Concourse CI。 需要登陆，用户名和密码都是 admin
 
 <img width="1916" alt="截屏2022-09-30 16 56 23" src="https://user-images.githubusercontent.com/13810907/193233277-4ee02ae3-3d8e-45a5-bc80-4c949de790b3.png">
 
