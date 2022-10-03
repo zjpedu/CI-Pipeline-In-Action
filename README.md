@@ -1,13 +1,13 @@
-##  搭建 Concourse Pipeline
+##  Concourse Pipeline
 
-### 环境
+### Environments
 
-* linux (x86-64) ubuntu/centos x86_64 都可以
-* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64 没有构建成功,主要是没有 `fly` 工具
-* macos (我仅测试了 m1 pro apple silicon 不可以)
-* 我没有 windows 环境，所以不知道是否可行 😄
+* linux (x86-64) ubuntu/centos x86_64 ✅
+* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64 ❎
+* m1 pro apple silicon macos ❎
+* windows 🤷‍♂️
 
-### 安装 docker
+### Install Docker
 
 ```shell
 sudo apt-get update
@@ -20,10 +20,10 @@ echo \
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli docker-compose containerd.io docker-compose-plugin
 sudo service docker start
-sudo service docker status #查看 docker 是否处于 running 状态
+sudo service docker status 
 docker --version
-# sudo docker run hello-world # 进入到 docker 中，后面这两句可以不用测试
-# exit # 退出 docker
+# sudo docker run hello-world
+# exit
 ```
 
 
@@ -34,28 +34,28 @@ git clone https://github.com/concourse/concourse-docker.git
 cd concourse-docker
 ./keys/generate
 docker-compose up -d
-docker-compose down # 关闭 concourse
+docker-compose down
 ```
 
 
-### 安装 Fly CLI
+### Install Fly CLI
 
 https://github.com/concourse/concourse/releases
 
-下载对应的包，使得 `fly` 命令可用。解压后，将 `fly` 可执行文件移动到 /usr/local/bin 目录下。
+Download the `fly`tool and decompress. Then moving the fly to `/usr/local/bin`
 
-### Demo
+### Demo Show
 
 ```shell
 fly -t ci login -c http://localhost:8080 -u admin -p admin
 fly targets
 ```
 
-接着用浏览器打开 `http://localhost:8080` 看部署是否成功，看到下述画面表示成功安装 Concourse CI。 需要登陆，用户名和密码都是 admin
+Open web browser `http://localhost:8080`, user_name: admin password: admin
 
 <img width="1916" alt="截屏2022-09-30 16 56 23" src="https://user-images.githubusercontent.com/13810907/193233277-4ee02ae3-3d8e-45a5-bc80-4c949de790b3.png">
 
-* pipeline.yml 它会拉取 ubuntu 20.04，并且运行输出 `hello, csapp!`
+* pipeline.yml
 
 ```shell
 jobs:
@@ -82,11 +82,11 @@ fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
 <img width="1912" alt="截屏2022-10-02 15 04 13" src="https://user-images.githubusercontent.com/13810907/193442261-0069fad0-02a9-4aa1-b5e7-05b02566f613.png">
 
 
-### 参考
+### Reference
 
 1. https://github.com/concourse/concourse
 
-### 练习
+### Excerises
 
 #### Setup a Concourse CI(Continuous Integration) example pipeline.
 
@@ -148,7 +148,7 @@ The expected jobs:
 2. 完成 job2
 4. [Plus] Using Concourse github resource instead of clone the repo manually (refer to https://github.com/concourse/git-resource)
 
-答案: pipeline.yml 如下两种方法都可以
+A: pipeline.yml
 
 ```shell
 jobs:
@@ -186,7 +186,8 @@ jobs:
                   [ $current_time -le $ddl ]
                   [ $result -ge 36 ]
 ```
-或者写成下面这样也可以
+
+or using the following method
 
 ```shell
 resources:
@@ -240,3 +241,8 @@ start docker container inspect the `run` command
 ```shell
 sudo docker run -it ubuntu bash
 ```
+
+
+## GitHub Actions
+
+Reference by my github action workflow https://github.com/zjpedu/Computer-Systems-Labs/tree/main/.github/workflows
