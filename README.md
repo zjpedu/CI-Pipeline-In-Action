@@ -27,7 +27,7 @@ docker --version
 ```
 
 
-### 安装 Concourse CI
+### Install Concourse CI
 
 ```shell
 git clone https://github.com/concourse/concourse-docker.git
