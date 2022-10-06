@@ -102,7 +102,7 @@ Then Concourse can fetch and use this container. Docker Image requirement:
 3. generate a rsa key.
 4. [Plus] enable coredump
 
-
+下面的 pipeline.yml 会生成 coredump，放在 `/tmp` 目录下，换成其他目录都不能成功，必须要配置 privileged: true，这样才能在 docker container 中生成 coredump
 ```shell
 jobs:
     - name: coredump
@@ -142,7 +142,6 @@ jobs:
                   cd Computer-Systems-Labs/gdb_test
                   gcc -g -o test test3.c
                   ./test
-                  
 ```
 
 Requirement II. Instead of just echo helloworld, you should write a simple Concourse CI pipeline to get a github repo, compile a C program and run the program.
@@ -152,8 +151,7 @@ Refer to Concourse documentation(https://concourse-ci.org/docs.html).
 The expected jobs:
 
 1. Fetch a github repo (https://github.com/zjpedu/Computer-Systems-Labs))
-2. 完成 job2
-4. [Plus] Using Concourse github resource instead of clone the repo manually (refer to https://github.com/concourse/git-resource)
+2. 完成 lab2
 
 A: pipeline.yml
 
@@ -194,7 +192,7 @@ jobs:
                   [ $result -ge 36 ]
 ```
 
-or using the following method
+or using the following method (3. [Plus] Using Concourse github resource instead of clone the repo manually (refer to https://github.com/concourse/git-resource))
 
 ```shell
 resources:
@@ -243,47 +241,7 @@ jobs:
                   [ $result -ge 36 ]
 ```
 
-下面的 pipeline.yml 会生成 coredump，放在 `/tmp` 目录下，换成其他目录都不能成功，必须要配置 privileged: true，这样才能在 docker container 中生成 coredump
-```shell
-jobs:
-    - name: coredump
-      public: true
-      plan:
-        - task: execute-the-tasks
-          privileged: true
-          config:
-            platform: linux
-            image_resource:
-              type: docker-image
-              source: {
-                repository: ubuntu,
-                tag: 20.04
-              }
-            run:
-               user: root
-               path: /bin/bash
-               args:
-                - "-e"
-                - "-c"
-                - |
-                  set -x
-                  ulimit -c unlimited
-                  echo 'ulimit -c unlimited' >> ~/.bash_profile
-                  echo '/tmp/core.%t.%e.%p' | tee /proc/sys/kernel/core_pattern
-                  apt-get update
-                  apt-get install git -y
-                  apt-get install gcc -y
-                  apt-get install vim -y
-                  apt-get install libleveldb-dev -y
-                  apt-get install openssh-client -y
-                  ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa
-                  source ~/.bash_profile
-                  cat /root/.ssh/id_rsa.pub
-                  git clone https://github.com/zjpedu/Computer-Systems-Labs
-                  cd Computer-Systems-Labs/gdb_test
-                  gcc -g -o test test3.c
-                  ./test
-```
+
 
 start docker container inspect the `run` command
 
@@ -294,8 +252,11 @@ sudo docker run -it ubuntu bash
 ### 进入到 concourse CI 中调试
 
 ```shell
-fly -t ci_name hijack -u build_url # 登陆后就可以进入到 bash 界面，使用 gdb 等调试代码
-ps aux # 查看 hang 住的进程
+fly -t ci_name login # 先完成登陆
+fly targets  # 查看 targets，url 需要和下面的 build_url 拼接 返回的 url 为：http://localhost:8080
+fly -t ci_name hijack -u build_url # 登陆后就可以进入到 bash 界面，使用 gdb 等调试代码 如：fly -t ci hijack -u http://localhost:8080/teams/main/pipelines/core/jobs/coredump/builds/10  这个后面的具体内容为 build_url 拼接部分 /teams/main/pipelines/core/jobs/coredump/builds/10
+apt-get install gdb -y
+gdb xxx coredump_file
 ```
 
 ## GitHub Actions
