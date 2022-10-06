@@ -2,9 +2,9 @@
 
 ### Environments
 
-* linux (x86-64) ubuntu/centos x86_64 ✅
-* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64 ❎
-* m1 pro apple silicon macos ❎
+* ubuntu/centos x86_64 ✅
+* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64 ❌
+* m1 pro apple silicon macos ❌
 * windows 🤷‍♂️
 
 ### Install Docker
