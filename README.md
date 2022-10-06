@@ -109,6 +109,7 @@ jobs:
       public: true
       plan:
         - task: execute-the-tasks
+          privileged: true
           config:
             platform: linux
             image_resource:
@@ -118,24 +119,30 @@ jobs:
                 tag: 20.04
               }
             run:
+               user: root
                path: /bin/bash
                args:
                 - "-e"
                 - "-c"
                 - |
                   set -x
+                  ulimit -c unlimited
+                  echo 'ulimit -c unlimited' >> ~/.bash_profile
+                  echo '/tmp/core.%t.%e.%p' | tee /proc/sys/kernel/core_pattern
                   apt-get update
                   apt-get install git -y
                   apt-get install gcc -y
+                  apt-get install vim -y
                   apt-get install libleveldb-dev -y
                   apt-get install openssh-client -y
                   ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa
-                  echo 'ulimit -c unlimited' >> ~/.bash_profile
                   source ~/.bash_profile
                   cat /root/.ssh/id_rsa.pub
                   git clone https://github.com/zjpedu/Computer-Systems-Labs
                   cd Computer-Systems-Labs/gdb_test
-                  gcc -o test test3.c
+                  gcc -g -o test test3.c
+                  ./test
+                  
 ```
 
 Requirement II. Instead of just echo helloworld, you should write a simple Concourse CI pipeline to get a github repo, compile a C program and run the program.
@@ -234,6 +241,48 @@ jobs:
                   current_time=`date +%s`
                   [ $current_time -le $ddl ]
                   [ $result -ge 36 ]
+```
+
+下面的 pipeline.yml 会生成 coredump，放在 `/tmp` 目录下，换成其他目录都不能成功，必须要配置 privileged: true，这样才能在 docker container 中生成 coredump
+```shell
+jobs:
+    - name: coredump
+      public: true
+      plan:
+        - task: execute-the-tasks
+          privileged: true
+          config:
+            platform: linux
+            image_resource:
+              type: docker-image
+              source: {
+                repository: ubuntu,
+                tag: 20.04
+              }
+            run:
+               user: root
+               path: /bin/bash
+               args:
+                - "-e"
+                - "-c"
+                - |
+                  set -x
+                  ulimit -c unlimited
+                  echo 'ulimit -c unlimited' >> ~/.bash_profile
+                  echo '/tmp/core.%t.%e.%p' | tee /proc/sys/kernel/core_pattern
+                  apt-get update
+                  apt-get install git -y
+                  apt-get install gcc -y
+                  apt-get install vim -y
+                  apt-get install libleveldb-dev -y
+                  apt-get install openssh-client -y
+                  ssh-keygen -q -t rsa -N '' -f /root/.ssh/id_rsa
+                  source ~/.bash_profile
+                  cat /root/.ssh/id_rsa.pub
+                  git clone https://github.com/zjpedu/Computer-Systems-Labs
+                  cd Computer-Systems-Labs/gdb_test
+                  gcc -g -o test test3.c
+                  ./test
 ```
 
 start docker container inspect the `run` command
