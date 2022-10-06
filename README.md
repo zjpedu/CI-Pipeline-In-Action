@@ -1,4 +1,9 @@
-##  Concourse Pipeline
+# CI Pipeline
+
+[Concourse Pipeline](#cp)
+[Github Actions](#ga)
+
+##  <span id='cp'>Concourse Pipeline</span>
 
 ### Environments
 
@@ -102,7 +107,8 @@ Then Concourse can fetch and use this container. Docker Image requirement:
 3. generate a rsa key.
 4. [Plus] enable coredump
 
-下面的 pipeline.yml 会生成 coredump，放在 `/tmp` 目录下，换成其他目录都不能成功，必须要配置 privileged: true，这样才能在 docker container 中生成 coredump
+The following yml generate the coredump file. It is need for `privileged: true`.
+
 ```shell
 jobs:
     - name: coredump
@@ -249,16 +255,21 @@ start docker container inspect the `run` command
 sudo docker run -it ubuntu bash
 ```
 
-### 进入到 concourse CI 中调试
+### Debug from Concourse CI
 
 ```shell
-fly -t ci_name login # 先完成登陆
-fly targets  # 查看 targets，url 需要和下面的 build_url 拼接 返回的 url 为：http://localhost:8080
-fly -t ci_name hijack -u build_url # 登陆后就可以进入到 bash 界面，使用 gdb 等调试代码 如：fly -t ci hijack -u http://localhost:8080/teams/main/pipelines/core/jobs/coredump/builds/10  这个后面的具体内容为 build_url 拼接部分 /teams/main/pipelines/core/jobs/coredump/builds/10
+fly -t ci_name login # login to concourse
+fly targets  
+fly -t ci_name hijack -u build_url # http://localhost:8080/teams/main/pipelines/core/jobs/coredump/builds/10
 apt-get install gdb -y
 gdb xxx coredump_file
 ```
 
-## GitHub Actions
+### Download from Concourse
+
+```shell
+fly -t ci hijack -u http://localhost:8080/teams/main/pipelines/core/jobs/coredump/builds/10 -s execute-the-tasks -- base64 /tmp/core.1665048466.test.6 | base64 -d > core # -s is at pipeline.yml or fly -t ci hijack -u http://localhost:8080/teams/main/pipelines/core/jobs/coredump/builds/10 output
+```
+## <span id="ga">GitHub Actions</span>
 
 Reference by my github action workflow https://github.com/zjpedu/Computer-Systems-Labs/tree/main/.github/workflows
