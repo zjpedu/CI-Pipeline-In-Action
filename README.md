@@ -242,6 +242,12 @@ start docker container inspect the `run` command
 sudo docker run -it ubuntu bash
 ```
 
+### 进入到 concourse CI 中调试
+
+```shell
+fly -t ci_name hijack -u build_url # 登陆后就可以进入到 bash 界面，使用 gdb 等调试代码
+ps aux # 查看 hang 住的进程
+```
 
 ## GitHub Actions
 
