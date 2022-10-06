@@ -1,8 +1,10 @@
 # CI Pipeline
 
-* [Concourse Pipeline](#cp)
+**Content**
 
-* [Github Actions](#ga)
+[Concourse Pipeline](#cp)
+
+[Github Actions](#ga)
 
 ##  <span id='cp'>Concourse Pipeline</span>
 
