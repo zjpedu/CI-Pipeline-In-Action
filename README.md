@@ -160,7 +160,7 @@ Refer to Concourse documentation(https://concourse-ci.org/docs.html).
 The expected jobs:
 
 1. Fetch a github repo (https://github.com/zjpedu/Computer-Systems-Labs))
-2. 完成 lab2
+2. Implement the [lab2](https://github.com/zjpedu/Computer-Systems-Labs/tree/main/lab2/datalab-handout)
 
 A: pipeline.yml
 
