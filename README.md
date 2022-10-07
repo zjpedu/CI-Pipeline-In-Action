@@ -55,11 +55,11 @@ Download the `fly`tool and decompress. Then moving the fly to `/usr/local/bin`
 ### Demo Show
 
 ```shell
-fly -t ci login -c http://localhost:8080 -u admin -p admin
+fly -t ci login -c http://localhost:8080 -u test -p test
 fly targets
 ```
 
-Open web browser `http://localhost:8080`, user_name: admin password: admin
+Open web browser `http://localhost:8080`, user_name: test password: test
 
 <img width="1916" alt="截屏2022-09-30 16 56 23" src="https://user-images.githubusercontent.com/13810907/193233277-4ee02ae3-3d8e-45a5-bc80-4c949de790b3.png">
 
