@@ -4,6 +4,7 @@ jobs:
       plan:
         - task: execute-the-tasks
           privileged: true
+          timeout: 24h
           config:
             platform: linux
             image_resource:
