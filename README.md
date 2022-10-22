@@ -96,7 +96,7 @@ fly -t ci set-pipeline -p test_pipeline -c pipeline.yml
 
 1. https://github.com/concourse/concourse
 
-### Excerises
+### Excerises [References](https://github.com/zhangh43/hire)
 
 #### Setup a Concourse CI(Continuous Integration) example pipeline.
 
