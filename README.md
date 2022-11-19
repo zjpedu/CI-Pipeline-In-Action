@@ -1,7 +1,5 @@
 # CI Pipeline
 
-[Video](https://www.bilibili.com/video/BV1AG411E7su/?spm_id_from=333.999.0.0&vd_source=85a5524f087e9f3d8450b5629065dfdc)
-
 **Content**
 
 [Concourse Pipeline](#cp)
