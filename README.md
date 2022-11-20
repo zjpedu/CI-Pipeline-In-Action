@@ -11,7 +11,7 @@
 ### Environments
 
 * ubuntu/centos x86_64 ✅
-* linux arm64 ubuntu/centos https://github.com/zjpedu/concourse-arm64 ❌
+* linux arm64 ubuntu/centos ❌
 * m1 pro apple silicon macos ❌
 * windows 🤷‍♂️
 
