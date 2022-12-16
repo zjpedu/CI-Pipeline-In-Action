@@ -1,3 +1,8 @@
+![Github stars](https://img.shields.io/github/stars/zjpedu/CI-Pipeline-In-Action.svg)
+![github language](https://img.shields.io/badge/language-YAML-green.svg)
+![](https://img.shields.io/github/license/zjpedu/CI-Pipeline-In-Action.svg)
+![](https://img.shields.io/github/forks/zjpedu/CI-Pipeline-In-Action.svg)
+
 # CI Pipeline
 
 **Content**
